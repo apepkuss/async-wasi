@@ -156,7 +156,7 @@ impl AsyncWasiSocket {
 
         Ok(FdStat {
             filetype,
-            fs_rights_base: self.state.fs_rights,
+            fs_rights_base: self.state.fs_rights.clone(),
             fs_rights_inheriting: WASIRights::empty(),
             flags,
         })

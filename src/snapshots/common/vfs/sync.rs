@@ -438,9 +438,9 @@ impl WasiFile {
             } else {
                 FileType::REGULAR_FILE
             },
-            fs_rights_base: self.right,
+            fs_rights_base: self.right.clone(),
             fs_rights_inheriting: WASIRights::empty(),
-            flags: self.flags,
+            flags: self.flags.clone(),
         };
         Ok(fd_flags)
     }
@@ -464,7 +464,7 @@ impl WasiFile {
         fs_rights_base: WASIRights,
         _fs_rights_inheriting: WASIRights,
     ) -> Result<(), Errno> {
-        self.right.can(fs_rights_base)?;
+        self.right.can(fs_rights_base.clone())?;
         self.right = fs_rights_base;
         Ok(())
     }
@@ -758,8 +758,8 @@ impl WasiPreOpenDir {
             return Err(Errno::__WASI_ERRNO_INVAL);
         }
 
-        let dir_rights = self.dir_rights & fs_rights_base;
-        let file_rights = self.file_rights & fs_rights_inheriting;
+        let dir_rights = self.dir_rights.clone() & fs_rights_base;
+        let file_rights = self.file_rights.clone() & fs_rights_inheriting;
         let meta = fs::metadata(&path)?;
         if !meta.is_dir() {
             return Err(Errno::__WASI_ERRNO_NOTDIR);
@@ -973,8 +973,8 @@ impl WasiDir {
     pub fn fd_fdstat_get(&self) -> Result<FdStat, Errno> {
         Ok(FdStat {
             filetype: FileType::DIRECTORY,
-            fs_rights_base: self.dir_rights,
-            fs_rights_inheriting: self.file_rights,
+            fs_rights_base: self.dir_rights.clone(),
+            fs_rights_inheriting: self.file_rights.clone(),
             flags: FdFlags::empty(),
         })
     }
@@ -984,8 +984,8 @@ impl WasiDir {
         fs_rights_base: WASIRights,
         fs_rights_inheriting: WASIRights,
     ) -> Result<(), Errno> {
-        self.dir_rights.can(fs_rights_base)?;
-        self.file_rights.can(fs_rights_inheriting)?;
+        self.dir_rights.can(fs_rights_base.clone())?;
+        self.file_rights.can(fs_rights_inheriting.clone())?;
 
         self.dir_rights = fs_rights_base;
         self.file_rights = fs_rights_inheriting;

@@ -119,6 +119,7 @@ bitflags! {
 }
 
 bitflags! {
+    #[derive(PartialEq)]
     pub struct SdFlags: wasi_types::__wasi_sdflags_t::Type {
         const RD = wasi_types::__wasi_sdflags_t::__WASI_SDFLAGS_RD;
         const WR = wasi_types::__wasi_sdflags_t::__WASI_SDFLAGS_WR;

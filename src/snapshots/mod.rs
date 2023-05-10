@@ -646,7 +646,7 @@ pub mod serialize {
         use super::common::net;
         let mut wasi_ctx = super::WasiCtx::new();
         wasi_ctx.push_arg("abc".to_string());
-        wasi_ctx.push_env("a", "1");
+        wasi_ctx.push_env("a=1".to_string());
         wasi_ctx.push_preopen(vfs::WasiPreOpenDir::new(
             ".".parse().unwrap(),
             ".".parse().unwrap(),

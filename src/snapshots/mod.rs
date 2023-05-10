@@ -53,8 +53,9 @@ impl WasiCtx {
         self.args.push(arg);
     }
 
-    pub fn push_env(&mut self, key: &str, value: &str) {
-        self.envs.push(format!("{}={}", key, value));
+    /// The format of the `env` argument should be "KEY=VALUE"
+    pub fn push_env(&mut self, env: String) {
+        self.envs.push(env);
     }
 
     fn remove_closed(&mut self) {

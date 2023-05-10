@@ -7,6 +7,7 @@ use crate::object_pool::ObjectPool;
 use env::wasi_types::__wasi_fd_t;
 use env::VFD;
 
+#[derive(Debug)]
 pub struct WasiCtx {
     args: Vec<String>,
     envs: Vec<String>,

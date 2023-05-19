@@ -133,6 +133,9 @@ impl WasiCtx {
     }
 }
 
+unsafe impl Send for WasiCtx {}
+unsafe impl Sync for WasiCtx {}
+
 #[cfg(test)]
 mod vfs_test {
     use std::path::PathBuf;
